@@ -11,6 +11,7 @@
 
   <groupId>com.querydsl</groupId>
   <artifactId>querydsl-jpa</artifactId>
+  <version>4.2.1-HIBERNATE53</version>
   <name>Querydsl - JPA support</name>
   <description>JPA support for Querydsl</description>
   <url>${project.homepage}</url>
@@ -84,27 +85,27 @@
     <dependency>
       <groupId>com.querydsl</groupId>
       <artifactId>querydsl-core</artifactId>
-      <version>${project.version}</version>
-    </dependency> 
+      <version>4.2.1</version>
+    </dependency>
     <dependency>
       <groupId>com.querydsl</groupId>
       <artifactId>querydsl-apt</artifactId>
-      <version>${project.version}</version>
+      <version>4.2.1</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>javax.inject</groupId>
       <artifactId>javax.inject</artifactId>
     </dependency>
-    
+
     <dependency>
       <groupId>com.querydsl</groupId>
       <artifactId>querydsl-sql</artifactId>
-      <version>${project.version}</version>
+      <version>4.2.1</version>
       <scope>compile</scope>
       <optional>true</optional>
-    </dependency>    
-    
+    </dependency>
+
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
@@ -112,8 +113,8 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
-    </dependency>    
-    
+    </dependency>
+
     <!-- test -->
     <dependency>
       <groupId>cglib</groupId>
@@ -127,15 +128,15 @@
       <version>${eclipselink.version}</version>
       <optional>true</optional>
     </dependency>
-    
+
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>${postgresql.version}</version>
       <scope>test</scope>
-    </dependency>    
+    </dependency>
 
-    <!-- 
+    <!--
     <dependency>
       <groupId>org.apache.openjpa</groupId>
       <artifactId>openjpa-persistence</artifactId>
@@ -147,9 +148,9 @@
       <artifactId>openjpa-persistence-jdbc</artifactId>
       <version>2.2.0</version>
       <scope>test</scope>
-    </dependency>   
-    -->  
-     
+    </dependency>
+    -->
+
      <dependency>
        <groupId>org.batoo.jpa</groupId>
        <artifactId>batoo-jpa</artifactId>
@@ -168,7 +169,7 @@
       <version>0.7.1.RELEASE</version>
       <scope>test</scope>
     </dependency>
-    
+
     <dependency>
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
@@ -182,7 +183,7 @@
       <version>${h2.version}</version>
       <scope>test</scope>
     </dependency>
-    
+
     <dependency>
       <groupId>org.apache.derby</groupId>
       <artifactId>derby</artifactId>
@@ -211,28 +212,28 @@
     <dependency>
       <groupId>com.querydsl</groupId>
       <artifactId>querydsl-core</artifactId>
-      <version>${project.version}</version>
+      <version>4.2.1</version>
       <scope>test</scope>
       <type>test-jar</type>
     </dependency>
-    
+
     <dependency>
       <groupId>jdepend</groupId>
       <artifactId>jdepend</artifactId>
       <version>2.9.1</version>
       <scope>test</scope>
-    </dependency>        
-    
+    </dependency>
+
   </dependencies>
-  
+
   <build>
-    <plugins> 
-    
+    <plugins>
+
       <plugin>
         <groupId>org.apache.felix</groupId>
         <artifactId>maven-bundle-plugin</artifactId>
-      </plugin>   
-          
+      </plugin>
+
       <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jar-plugin</artifactId>
@@ -240,21 +241,21 @@
            <execution>
                <id>apt</id>
              <goals>
-               <goal>jar</goal>                
-             </goals>    
+               <goal>jar</goal>
+             </goals>
              <configuration>
                <classifier>apt</classifier>
-               <classesDirectory>src/apt</classesDirectory>                                    
-             </configuration>              
-           </execution>        
+               <classesDirectory>src/apt</classesDirectory>
+             </configuration>
+           </execution>
           <execution>
             <id>test-jar</id>
             <goals>
               <goal>test-jar</goal>
             </goals>
-          </execution>               
+          </execution>
         </executions>
-      </plugin>            
+      </plugin>
       <plugin>
         <artifactId>maven-source-plugin</artifactId>
         <executions>
@@ -265,15 +266,15 @@
             </goals>
           </execution>
         </executions>
-      </plugin>      
-            
+      </plugin>
+
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <executions>
           <execution>
               <id>one-jars</id>
             <goals>
-              <goal>single</goal>    
+              <goal>single</goal>
             </goals>
             <phase>package</phase>
               <configuration>
@@ -283,17 +284,17 @@
               </descriptors>
               <outputDirectory>${project.build.directory}</outputDirectory>
             </configuration>
-          </execution>    
-        </executions>        
-      </plugin>      
-      
+          </execution>
+        </executions>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <includes>
             <include>**/*Test.java</include>
-          </includes> 
+          </includes>
           <systemProperties>
             <property>
                 <name>derby.stream.error.file</name>
@@ -307,26 +308,26 @@
         </configuration>
         <executions>
           <execution>
-          <id>verification</id>    
+          <id>verification</id>
           <goals>
-            <goal>test</goal>    
+            <goal>test</goal>
           </goals>
           <phase>verify</phase>
           <configuration>
               <systemProperties>
               <property>
                   <name>version</name>
-                <value>${project.version}</value>
-              </property>                  
-            </systemProperties>    
+                <value>4.2.1</value>
+              </property>
+            </systemProperties>
             <includes>
               <include>com/querydsl/jpa/PackageVerification.java</include>
             </includes>
           </configuration>
           </execution>
-        </executions>        
+        </executions>
       </plugin>
-               
+
       <plugin>
         <groupId>com.mysema.maven</groupId>
         <artifactId>apt-maven-plugin</artifactId>
@@ -340,14 +341,14 @@
               <outputDirectory>target/generated-test-sources/java</outputDirectory>
               <processor>com.querydsl.apt.hibernate.HibernateAnnotationProcessor</processor>
               <logOnlyOnError>true</logOnlyOnError>
-            </configuration>            
+            </configuration>
           </execution>
         </executions>
       </plugin>
       <plugin>
         <groupId>com.querydsl</groupId>
         <artifactId>querydsl-maven-plugin</artifactId>
-        <version>${project.version}</version>
+        <version>4.2.1</version>
         <!-- 
         <executions>
           <execution>

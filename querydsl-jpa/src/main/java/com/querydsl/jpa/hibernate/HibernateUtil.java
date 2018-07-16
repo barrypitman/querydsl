@@ -13,27 +13,24 @@
  */
 package com.querydsl.jpa.hibernate;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
-import java.util.Set;
-
-import org.hibernate.Query;
-import org.hibernate.type.*;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import com.querydsl.core.types.ParamExpression;
 import com.querydsl.core.types.ParamNotSetException;
 import com.querydsl.core.types.dsl.Param;
+import org.hibernate.Query;
+import org.hibernate.type.*;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Date;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * {@code HibernateUtil} provides static utility methods for Hibernate
  *
  * @author tiwe
- *
  */
 public final class HibernateUtil {
 
@@ -63,10 +60,11 @@ public final class HibernateUtil {
         TYPES = builder.build();
     }
 
-    private HibernateUtil() { }
+    private HibernateUtil() {
+    }
 
-    public static void setConstants(Query query, Map<Object,String> constants,
-            Map<ParamExpression<?>, Object> params) {
+    public static void setConstants(Query query, Map<Object, String> constants,
+                                    Map<ParamExpression<?>, Object> params) {
         for (Map.Entry<Object, String> entry : constants.entrySet()) {
             String key = entry.getValue();
             Object val = entry.getKey();
@@ -81,14 +79,23 @@ public final class HibernateUtil {
     }
 
     private static void setValue(Query query, String key, Object val) {
-        if (val instanceof Collection<?>) {
+
+        // hibernate5.3 removed support for treating positional parameters as named parameters.
+        // see https://hibernate.atlassian.net/browse/HHH-12116
+        // if query contains a positional parameter "?1", then calling setParameter("1", val) will
+        // result in "IllegalArgumentException: Could not locate named parameter [1], expecting one of []"
+        // hacky solution is
+        // see relevant unresolved querydsl issue: https://github.com/querydsl/querydsl/issues/2326
+        /*if (val instanceof Collection<?>) {
             query.setParameterList(key, (Collection<?>) val);
         } else if (val instanceof Object[] && !BUILT_IN.contains(val.getClass())) {
             query.setParameterList(key, (Object[]) val);
-        } else if (val instanceof Number && TYPES.containsKey(val.getClass())) {
-            query.setParameter(key, val, getType(val.getClass()));
+        }*/
+
+        if (val instanceof Number && TYPES.containsKey(val.getClass())) {
+            query.setParameter(Integer.valueOf(key), val, getType(val.getClass()));
         } else {
-            query.setParameter(key, val);
+            query.setParameter(Integer.valueOf(key), val);
         }
     }
 
